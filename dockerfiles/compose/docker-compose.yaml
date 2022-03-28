@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  build:
+    image: app-compile
+  test:
+    image: app-test
