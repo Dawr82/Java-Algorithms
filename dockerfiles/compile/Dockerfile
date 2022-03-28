@@ -5,3 +5,4 @@ WORKDIR /app
 RUN git clone https://github.com/Dawr82/Java-Algorithms.git .
 
 CMD ["mvn", "compile"]
+

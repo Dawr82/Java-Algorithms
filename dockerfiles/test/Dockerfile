@@ -1,6 +1,7 @@
  # Assuming that such image exists
-FROM app-test
+FROM app-compile
 
 WORKDIR /app
 
 CMD ["mvn", "test"]
+
