@@ -4,4 +4,4 @@ WORKDIR /app
 
 RUN git clone https://github.com/Dawr82/Java-Algorithms.git .
 
-RUN mvn compile
+CMD ["mvn", "compile"]

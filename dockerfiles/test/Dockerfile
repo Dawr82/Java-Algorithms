@@ -3,4 +3,4 @@ FROM app-test
 
 WORKDIR /app
 
-RUN mvn test
+CMD ["mvn", "test"]
