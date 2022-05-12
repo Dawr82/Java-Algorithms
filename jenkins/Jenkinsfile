@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh "docker rm -f builder"
                 sh "docker volume create build"
-                sh "docker build -t builder dockerfiles/jenkins/builder/Dockerfile"
+                sh "docker build -t builder dockerfiles/jenkins/builder"
                 sh '''docker run --mount source=clone,target=/app
                 --mount source=build,target=/build --name builder builder'''
             }
@@ -25,7 +25,7 @@ pipeline {
         stage('test') {
             steps {
                 sh "docker rm -f tester"
-                sh "docker build -t tester dockerfiles/jenkins/tester/Dockerfile"
+                sh "docker build -t tester dockerfiles/jenkins/tester"
                 sh "docker run --mount source=build,target=/app --name tester tester"
             }
         }
