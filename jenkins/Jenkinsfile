@@ -2,11 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('fetch') {
+        stage('clone') {
             steps {
-                sh "mkdir -p src"
-                sh "git clone https://github.com/Dawr82/Java-Algorithms.git ./src"
+                sh "docker rm -f clone"
+                sh "docker volume create clone"
+                sh "docker run --mount source=clone,target=/app --name clone ubuntu"
+                sh "git clone https://github.com/Dawr82/Java-Algorithms.git"
+                sh "docker cp ./Java-Algorithms clone:/app"
+                sh "docker rm -f clone"
             }
         }
+        // stage('build') {
+        //     steps {
+
+        //     }
+        // }
+        // stage('test') {
+        //     steps {
+
+        //     }
+        // }
     }
 }
