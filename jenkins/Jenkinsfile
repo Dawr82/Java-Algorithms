@@ -26,8 +26,6 @@ pipeline {
                 sh "docker rm -f tester"
                 sh "docker build -t tester dockerfiles/jenkins/tester"
                 sh "docker run --mount source=clone,target=/app --name tester tester"
-                sh "docker volume rm clone"
-                sh "docker volume rm build"
             }
         }
     }
