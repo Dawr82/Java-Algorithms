@@ -2,14 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('build') {
+        stage('fetch') {
             steps {
-                sh "uname -a"
-            }
-        }
-        stage('test') {
-            steps {
-                sh "uptime"
+                sh "mkdir -p src"
+                sh "git clone https://github.com/Dawr82/Java-Algorithms.git ./src"
             }
         }
     }
