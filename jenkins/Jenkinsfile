@@ -35,6 +35,7 @@ pipeline {
                 sh "docker run --rm --mount source=build,target=/app --name deployer deployer"
             }
         }
+        
         stage('cleanup'){
             steps {
                 sh "docker rmi builder"
