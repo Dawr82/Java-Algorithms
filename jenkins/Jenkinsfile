@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam(name: 'PUBLISH', defaultValue: true, description: 'Decides whether built artifact is published to Docker Hub.')
+        string(name: 'REPOSITORY', description: 'Repository which the images will be pushed to.')
+        string(name: 'TAG', description: 'Version of the image.')
+    }
 
     stages {
         stage('clone') {
@@ -35,7 +40,18 @@ pipeline {
                 sh "docker run --rm --mount source=build,target=/app --name deployer deployer"
             }
         }
-        
+        stage('publish') {
+            when {
+                expression {
+                    return params.PUBLISH
+                }
+            }
+            steps {
+                sh "docker build -t ${REPOSITORY}:${TAG} dockerfiles/jenkins/deployer"
+                sh "docker push ${REPOSITORY}:${TAG}"
+            }
+        }
+
         stage('cleanup'){
             steps {
                 sh "docker rmi builder"
