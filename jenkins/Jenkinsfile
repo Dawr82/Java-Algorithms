@@ -47,15 +47,17 @@ pipeline {
                 }
             }
             steps {
+                sh" docker login"
                 sh "docker build -t ${REPOSITORY}:${TAG} dockerfiles/jenkins/deployer"
                 sh "docker push ${REPOSITORY}:${TAG}"
             }
         }
-
         stage('cleanup'){
             steps {
                 sh "docker rmi builder"
                 sh "docker rmi tester"
+                sh "docker rmi deployer"
+                sh "docker rmi ${REPOSITORY}:${TAG}"
                 sh "docker volume rm clone"
                 sh "docker volume rm build"
             }
