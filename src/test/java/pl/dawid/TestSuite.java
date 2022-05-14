@@ -5,7 +5,6 @@ import org.junit.runners.Suite;
 
 import pl.dawid.problem1.Algorithm1Test;
 import pl.dawid.problem10.Algorithm10Test;
-import pl.dawid.problem15.Algorithm15Test;
 import pl.dawid.problem18.Algorithm18Test;
 import pl.dawid.problem2.Algorithm2Test;
 import pl.dawid.problem27.Algorithm27Test;
@@ -21,7 +20,6 @@ import pl.dawid.utils.UtilitiesTest;
         Algorithm1Test.class,
         Algorithm2Test.class,
         Algorithm10Test.class,
-        Algorithm15Test.class,
         Algorithm18Test.class,
         Algorithm27Test.class,
         Algorithm29Test.class,
