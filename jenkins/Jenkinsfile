@@ -18,7 +18,7 @@ pipeline {
                 sh "docker rm -f builder"
                 sh "docker volume create build"
                 sh "docker build -t builder dockerfiles/jenkins/builder"
-                sh "docker run --rm --mount source=clone,target=/app --mount source=clone,target=/app/Java-Algorithms/build --name builder builder"
+                sh "docker run --rm --mount source=clone,target=/app --mount source=build,target=/app/Java-Algorithms/build --name builder builder"
             }
         }
         stage('test') {
