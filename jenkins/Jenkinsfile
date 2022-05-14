@@ -28,12 +28,19 @@ pipeline {
                 sh "docker run --rm --mount source=clone,target=/app --name tester tester"
             }
         }
+        stage('deploy') {
+            steps {
+                sh "docker rm -f deployer"
+                sh "docker build -t deployer dockerfiles/jenkins/deployer"
+                sh "docker run --rm --mount source=build,target=/app --name deployer deployer"
+            }
+        }
         stage('cleanup'){
             steps {
                 sh "docker rmi builder"
                 sh "docker rmi tester"
-                // sh "docker volume rm clone"
-                // sh "docker volume rm build"
+                sh "docker volume rm clone"
+                sh "docker volume rm build"
             }
         }
     }
