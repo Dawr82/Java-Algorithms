@@ -47,7 +47,6 @@ pipeline {
                 }
             }
             steps {
-                sh" docker login"
                 sh "docker build -t ${REPOSITORY}:${TAG} dockerfiles/jenkins/deployer"
                 sh "docker push ${REPOSITORY}:${TAG}"
             }
