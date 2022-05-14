@@ -8,7 +8,7 @@ pipeline {
                 sh "docker volume create clone"
                 sh "docker run --mount source=clone,target=/app --name clone ubuntu"
                 sh "rm -rf Java-Algorithms"
-                sh "git clone https://github.com/Dawr82/Java-Algorithms.git"
+                sh "git clone -b dev https://github.com/Dawr82/Java-Algorithms.git"
                 sh "docker cp ./Java-Algorithms clone:/app"
                 sh "docker rm -f clone"
             }
@@ -18,14 +18,22 @@ pipeline {
                 sh "docker rm -f builder"
                 sh "docker volume create build"
                 sh "docker build -t builder dockerfiles/jenkins/builder"
-                sh "docker run --mount source=clone,target=/app --name builder builder"
+                sh "docker run --rm --mount source=clone,target=/app --name builder builder"
             }
         }
         stage('test') {
             steps {
                 sh "docker rm -f tester"
                 sh "docker build -t tester dockerfiles/jenkins/tester"
-                sh "docker run --mount source=clone,target=/app --name tester tester"
+                sh "docker run --rm --mount source=clone,target=/app --name tester tester"
+            }
+        }
+        stage('cleanup'){
+            steps {
+                sh "docker rmi builder"
+                sh "docker rmi tester"
+                sh "docker volume rm clone"
+                sh "docker volume rm build"
             }
         }
     }
