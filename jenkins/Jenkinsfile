@@ -32,8 +32,8 @@ pipeline {
             steps {
                 sh "docker rmi builder"
                 sh "docker rmi tester"
-                //sh "docker volume rm clone"
-                //sh "docker volume rm build"
+                sh "docker volume rm clone"
+                sh "docker volume rm build"
             }
         }
     }
